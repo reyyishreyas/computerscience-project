@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Book</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        form {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Edit Book</h1>
+    <form action="{{ url_for('update', book_id=book[0]) }}" method="post">
+        <label for="title">Title:</label>
+        <input type="text" id="title" name="title" value="{{ book[1] }}" required>
+        <label for="author">Author:</label>
+        <input type="text" id="author" name="author" value="{{ book[2] }}" required>
+        <label for="price">Price:</label>
+        <input type="text" id="price" name="price" value="{{ book[3] }}" required>
+        <label for="description">Description:</label>
+        <textarea id="description" name="description">{{ book[4] }}</textarea>
+        <label for="published_date">Published Date:</label>
+        <input type="date" id="published_date" name="published_date" value="{{ book[5] }}">
+        <button type="submit">Update Book</button>
+    </form>
+</body>
+</html>

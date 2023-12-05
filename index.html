@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bookshop Management System</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        form {
+            margin-top: 20px;
+        }
+        .pagination {
+            margin-top: 20px;
+        }
+        .pagination a {
+            padding: 8px 16px;
+            text-decoration: none;
+            color: #000;
+            background-color: #f2f2f2;
+            margin: 0 4px;
+            border: 1px solid #ddd;
+        }
+        .pagination a.active {
+            background-color: #4CAF50;
+            color: white;
+        }
+        textarea {
+            width: 100%;
+            height: 100px;
+            resize: vertical;
+        }
+        button {
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        input[type="text"],
+        input[type="date"],
+        input[type="submit"] {
+            padding: 10px;
+            width: 100%;
+            margin-top: 5px;
+        }
+        input[type="submit"] {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+        /* New style for links */
+        .action-links a {
+            margin-right: 10px;
+            text-decoration: none;
+            padding: 5px;
+            border: 1px solid #4CAF50;
+            color: #4CAF50;
+        }
+        .action-links a:hover {
+            background-color: #4CAF50;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <h1>Bookshop Management System</h1>
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Title</th>
+            <th>Author</th>
+            <th>Price</th>
+            <th>Description</th>
+            <th>Published Date</th>
+            <th>Actions</th>
+        </tr>
+        {% for book in books %}
+            <tr>
+                <td>{{ book[0] }}</td>
+                <td>{{ book[1] }}</td>
+                <td>{{ book[2] }}</td>
+                <td>{{ book[3] }}</td>
+                <td>{{ book[4] }}</td>
+                <td>{{ book[5] }}</td>
+                <td class="action-links">
+                    <a href="{{ url_for('edit', book_id=book[0]) }}">Edit</a>
+                    <a href="{{ url_for('delete', book_id=book[0]) }}">Delete</a>
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+    <div class="pagination">
+        {% for i in range(1, (total_books // per_page) + 2) %}
+            <a href="{{ url_for('index', page=i) }}" class="{{ 'active' if i == page else '' }}">{{ i }}</a>
+        {% endfor %}
+    </div>
+    
+    <form action="/add" method="post">
+        <label for="title">Title:</label>
+        <input type="text" id="title" name="title" required>
+        <label for="author">Author:</label>
+        <input type="text" id="author" name="author" required>
+        <label for="price">Price:</label>
+        <input type="text" id="price" name="price" required>
+        <label for="description">Description:</label>
+        <textarea id="description" name="description"></textarea>
+        <label for="genre">Genre:</label>
+        <input type="text" id="genre" name="genre" required>
+        <label for="published_date">Published Date:</label>
+        <input type="date" id="published_date" name="published_date">
+        <button type="submit">Add Book</button>
+    </form>
+</body>
+</html>
